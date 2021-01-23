@@ -15,14 +15,14 @@ const TOKEN_PATH = 'token.json';
  * read in a settings file and print Project ID
  * @param {*} path 
  */
-export async function readProjectSettings(path, secret) {
+export async function getCredentials(path, secret) {
 
   try {
     const json = fs.readFileSync(path);
 
-      let settings = JSON.parse(json);
-      settings.installed['client_secret'] = secret;
-      return settings;
+    let settings = JSON.parse(json);
+    settings.installed.client_secret = secret;
+    return settings.installed;
   }
   catch (error) {
     throw `Bad input path: ${path}`;
@@ -37,8 +37,8 @@ export async function readProjectSettings(path, secret) {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback) {
-    const {client_secret, client_id, redirect_uris} = credentials.installed;
+export function authorize(credentials, callback) {
+    const {client_secret, client_id, redirect_uris} = credentials;
     const oAuth2Client = new google.auth.OAuth2(
         client_id, client_secret, redirect_uris[0]);
   

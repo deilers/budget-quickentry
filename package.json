@@ -18,6 +18,7 @@
   "homepage": "https://github.com/deilers/budget-quickentry#readme",
   "description": "",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "googleapis": "^39.2.0"
   }
 }
