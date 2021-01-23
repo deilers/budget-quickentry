@@ -1,5 +1,5 @@
 import fs from 'fs';
-import {google} from 'googleapis';
+import { google } from 'googleapis';
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
@@ -8,21 +8,28 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 // created automatically when the authorization flow completes for the first
 // time.
 const TOKEN_PATH = 'token.json';
+
+
+
 /**
  * read in a settings file and print Project ID
  * @param {*} path 
  */
-export function readProjectSettings(path) {
-    fs.readFile(path, (err, content) => {
-        if (err) return console.log('Error loading client secret file:', err);
-        // Authorize a client with credentials, then call the Google Sheets API.
-        //authorize(JSON.parse(content), listMajors);
+export async function readProjectSettings(path, secret) {
 
-        // print project ID
-        let token = JSON.parse(content);
-        console.log(token.installed.project_id);
-      });
+  try {
+    const json = fs.readFileSync(path);
+
+      let settings = JSON.parse(json);
+      settings.installed['client_secret'] = secret;
+      return settings;
+  }
+  catch (error) {
+    throw `Bad input path: ${path}`;
+  }
+
 }
+
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
