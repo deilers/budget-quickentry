@@ -1,0 +1,23 @@
+{
+  "type": "module",
+  "name": "budget-quickentry",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/deilers/budget-quickentry.git"
+  },
+  "author": "devon.d.eilers@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deilers/budget-quickentry/issues"
+  },
+  "homepage": "https://github.com/deilers/budget-quickentry#readme",
+  "description": "",
+  "dependencies": {
+    "googleapis": "^39.2.0"
+  }
+}
