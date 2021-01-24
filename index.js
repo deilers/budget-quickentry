@@ -1,12 +1,18 @@
-import { getCredentials, authorize } from './oauth_client.js';
-import { listMajors } from './samplecode.js';
-import dotenv from 'dotenv';
+import fs from 'fs';
+import { authorize } from './oauth_client.js';
+import { listMajors } from './when_authorized.js';
 
-// don't call this if PROD
-dotenv.config();
+const SETTINGS_PATH = 'settings.json';
 
-const SECRET = process.env.DRIVE_CLIENT_SECRET || '';
-const creds = await getCredentials('settings.json', SECRET);
-
-// listMajors is basically a 'hello world' for authenticating with Google Sheets.
-authorize(creds, listMajors);
+/**
+ * Read in OAuth client parameters and run sample data pull
+ */
+fs.readFile(
+    SETTINGS_PATH, 
+    (err, settingsStream) => {
+        if (err) return console.log('Error loading client secret file:', err);
+        const settings = JSON.parse(settingsStream);
+        
+        // listMajors is basically a 'hello world' for authenticating with Google Sheets.
+        authorize(settings, listMajors);
+});

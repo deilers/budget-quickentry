@@ -1,4 +1,5 @@
 import { google } from 'googleapis';
+import { getNewToken } from './oauth_client.js';
 
 /**
  * Saving this sample code for learning purposes
@@ -26,4 +27,3 @@ export function listMajors(auth) {
     }
   });
 }
-

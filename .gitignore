@@ -1,3 +1,6 @@
+# OAuth tokens
+token.json
+
 # Logs
 logs
 *.log

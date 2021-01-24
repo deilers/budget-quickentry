@@ -1,35 +1,11 @@
 import fs from 'fs';
+import readline from 'readline'
 import { google } from 'googleapis';
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 
-// The file token.json stores the user's access and refresh tokens, and is
-// created automatically when the authorization flow completes for the first
-// time.
 const TOKEN_PATH = 'token.json';
-
-
-
-/**
- * read in a settings file and print Project ID
- * @param {*} path 
- */
-export async function getCredentials(path, secret) {
-
-  try {
-    const json = fs.readFileSync(path);
-
-    let settings = JSON.parse(json);
-    settings.installed.client_secret = secret;
-    return settings.installed;
-  }
-  catch (error) {
-    throw `Bad input path: ${path}`;
-  }
-
-}
-
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -38,16 +14,21 @@ export async function getCredentials(path, secret) {
  * @param {function} callback The callback to call with the authorized client.
  */
 export function authorize(credentials, callback) {
-    const {client_secret, client_id, redirect_uris} = credentials;
-    const oAuth2Client = new google.auth.OAuth2(
-        client_id, 
-        client_secret, 
-        redirect_uris[0]
-      );
-  
+  const { client_id, redirect_uris } = credentials.installed;
+  const secret = process.env.DRIVE_CLIENT_SECRET;
+  const oAuth2Client = new google.auth.OAuth2(
+      client_id, 
+      secret,
+      redirect_uris[0]
+    );
+
+  fs.readFile(TOKEN_PATH, (err, token) => {
+    if (err) throw getNewToken(oAuth2Client, callback);
+
     oAuth2Client.setCredentials(JSON.parse(token));
     callback(oAuth2Client);
-  }
+  });
+}
 
   /**
  * Get and store new token after prompting for user authorization, and then
@@ -55,27 +36,36 @@ export function authorize(credentials, callback) {
  * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
  * @param {getEventsCallback} callback The callback for the authorized client.
  */
-function getNewToken(oAuth2Client, callback) {
-    const authUrl = oAuth2Client.generateAuthUrl({
-      access_type: 'offline',
-      scope: SCOPES,
-    });
-    console.log('Authorize this app by visiting this url:', authUrl);
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-    rl.question('Enter the code from that page here: ', (code) => {
-      rl.close();
-      oAuth2Client.getToken(code, (err, token) => {
-        if (err) return console.error('Error while trying to retrieve access token', err);
-        oAuth2Client.setCredentials(token);
-        // Store the token to disk for later program executions
-        fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-          if (err) return console.error(err);
-          console.log('Token stored to', TOKEN_PATH);
-        });
-        callback(oAuth2Client);
+export function getNewToken(oAuth2Client, callback) {
+  const authUrl = oAuth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: SCOPES,
+  });
+
+  console.log('Authorize this app by visiting this url:', authUrl);
+  const prompt = getAuthorizationPrompt();
+
+  prompt.question('Enter the code from that page here: ', (code) => {
+    prompt.close();
+    oAuth2Client.getToken(code, (err, token) => {
+      if (err) return console.error('Error while trying to retrieve access token', err);
+      oAuth2Client.setCredentials(token);
+      // Store the token to disk for later program executions
+      fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+        if (err) return console.error(err);
+        console.log('Token stored to', TOKEN_PATH);
       });
+      callback(oAuth2Client);
     });
-  }
+  });
+}
+
+/**
+ * setup I/O stream for authorizing an application
+ */
+function getAuthorizationPrompt() {
+  return readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+}
