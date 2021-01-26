@@ -9,7 +9,7 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 const TOKEN_PATH = 'token.json';
 
 /* Our API Client's secret key that validates Bearer tokens */
-const CLIENT_SECRET = process.env.DRIVE_CLIENT_SECRET;
+const SECRET = process.env.SHEETS_USER_SECRET;
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -19,7 +19,7 @@ const CLIENT_SECRET = process.env.DRIVE_CLIENT_SECRET;
  */
 export function authorize(credentials, callback) {
   const { client_id, redirect_uris } = credentials.installed;
-  const secret = CLIENT_SECRET;
+  const secret = SECRET;
   const oAuth2Client = new google.auth.OAuth2(
       client_id, 
       secret,
