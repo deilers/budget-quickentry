@@ -3,5 +3,7 @@ language: node_js
 node_js:
   - '14.15.1'
 script:
+  - chmod +x set_access_token.sh
+  - ./set_access_token.sh
   - npm ci
   - npm start
