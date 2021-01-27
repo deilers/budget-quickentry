@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { authorize, authorizeWithServiceAccount } from './oauth_client.js';
+import { authorize } from './oauth_client.js';
 import { getRecurringBillAmounts } from './when_authorized.js';
 
 const SETTINGS_PATH = 'settings.json';
@@ -15,5 +15,3 @@ fs.readFile(
         const settings = JSON.parse(settingsStream);
         authorize(settings, getRecurringBillAmounts);
 });
-
-authorize(settings, getRecurringBillAmounts);
