@@ -7,13 +7,13 @@ const SETTINGS_PATH = 'settings.json';
 /**
  * Read in OAuth client parameters and run sample data pull
  */
-// fs.readFile(
-//     SETTINGS_PATH, 
-//     (err, settingsStream) => {
-//         if (err) return console.log('Error loading client secret file:', err);
+fs.readFile(
+    SETTINGS_PATH, 
+    (err, settingsStream) => {
+        if (err) return console.log('Error loading client secret file:', err);
 
-//         const settings = JSON.parse(settingsStream);
-//         authorize(settings, getRecurringBillAmounts);
-// });
+        const settings = JSON.parse(settingsStream);
+        authorize(settings, getRecurringBillAmounts);
+});
 
-authorizeWithServiceAccount(getRecurringBillAmounts);
+authorize(settings, getRecurringBillAmounts);
