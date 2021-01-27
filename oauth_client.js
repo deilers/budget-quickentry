@@ -35,6 +35,17 @@ export function authorize(credentials, callback) {
   });
 }
 
+export function authorizeWithServiceAccount(callback) {
+  const JwtClient = new google.auth.JWT(
+    process.env.GOOGLE_API_EMAIL,
+    null,
+    process.env.GOOGLE_API_KEY,
+    SCOPES
+  );
+
+  callback(JwtClient);
+}
+
   /**
  * Get and store new token after prompting for user authorization, and then
  * execute the given callback with the authorized OAuth2 client.

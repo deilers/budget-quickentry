@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "budget-quickentry",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "index.js",
   "scripts": {
     "start": "node -r dotenv/config ./index.js",
