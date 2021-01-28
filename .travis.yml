@@ -1,6 +1,15 @@
 sudo: required
 language: node_js
 node_js:
-  - '14.15.1'
+- 14.15.1
 script:
-  - npm ci
+- npm ci
+deploy:
+  provider: npm
+  email: devon.d.eilers@gmail.com
+  api_key:
+    secure: DqT0a43qIIDaOyy9meQDyCP7Hd3aUPqJm0citG/UE2v8jQsvLYVjBXNbDLgZQb/O9E+rPklsVb97tDht5Sh/B622rM8FIqgQlbN7oGhHE8xUQRjs/paD7sjDvoMBR6AyyhiKnh3f+Ep7VZfdEphtcbG7Qdl4oh3REJxblcQY/lonTNnV4lbYMbk9OMnmIxYcadc5SbauxA7/CugE5cxeYz27I5TrqxR0IBVwNsE5A8Zdj9oNL3dWqovNbYxJinlqpddFCObHNd63e/5+tM/YQdyOKqAe89dDzTCL0yqAt4zgaUtr1ooJBXpJvP/z+WDNn8bVGbO9nN5sYinV7glpvvbq2DzaPmNt1m+yaaXLfiGvdUi0NKeweW7LKWaQSQ3FTti4zu/LXqzIbZJnPyaeVhXEMPVW6XzlJvE1b5XobSBftgMwc0mhUplsygoVHcODxXzaFsrlmZdU1AsHUI9mIEU5u8HL1pkwTZuB3RE3wSt9xIdcJ7X/LASt//jL64ZfQejKthQN7Wf0JbnqDIf6ZuDXQQ1+BaSNmTTpoAqQ/ryDB3MUB0y6ISOGhAJFpYhxlzaT6dtFwel/jFbBqCCzcAoXpl+mr2GKap5NBr+NaX9NYu4kTCTmlSLPtzAsizt0jXYv0+MVXH/HOH7ObBqJM1vvHJeVep/GJhhwwjzLRm4=
+  on:
+    tags: true
+    repo: deilers/budget-quickentry
+    branch: master
