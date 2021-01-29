@@ -3,7 +3,7 @@ language: node_js
 node_js:
 - 14.15.1
 script:
-- npm ci
+- npm install ./
 deploy:
   provider: npm
   email: devon.d.eilers@gmail.com
