@@ -3,6 +3,7 @@ node_js:
 - 14.15.1
 script:
 - npm ci
+- npm test
 - npm i ./
 deploy:
   api_key:
