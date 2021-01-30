@@ -4,13 +4,3 @@ node_js:
 script:
 - npm ci
 - npm test
-- npm i ./
-deploy:
-  provider: npm
-  email: devon.d.eilers@gmail.com
-  on:
-    repo: deilers/budget-quickentry
-    branch: master
-  skip_cleanup: 'true'
-  api_key:
-    secure: "HflFxaBneF8Lu+LJc7I97MY3iRdt747v6ZmG+4Q7I/kNGOSRVkQ+9iZu8TBpsLmIGSECafF3veccDjAJeOQpVKyWTk63xG4b/iDb2urGasqKr0pvgW7FD23Tou+eYKah4Z2agEPgUmvegK8Jo0vAdJX9ZLTxOUqleaeOPuJ7/R5n+PPlYSfgzHVV5jiVVyBfapB2D1zzw14PhNElDPZsga0Fa0ZzJCgPnOucwQxyhTgOeC24oOyBA/IUWyd+f/PtWIW3x/9ZB2a8h+sTGf9pPfV9ausG7/88h/Oz1MG6mPgKY8NBOPPQERl3EzZvqNOYMLfI9x4cm6Ka9DU6xSUygArmjS5+hik+fVVBq3AMbCFfkf5pKTFTfmEkAwq8n3oqmpD1JV2Bp/rTJt3qU5qcKe9FfYxIqc6l4KchF+T+xGh8PLjTK8XDI+Qutg7aWX5PtCXHj8DPJE+2ioyGO+fTUFnQ7eNPUPL8EXEI3VK0xbtIdeT5/J5GsjVrK1HqwJBtQU7YTPZc+CJJ0/N3Q+lJqrRNjkMrklipIPPYHYbV9WGnCMq4cEsw4U8VPgJ4n0VOwXBYFWvfI3+aJH/oVU8rMtgepEU91klvbPiIZuYIdRnzBKg49U3UzkmKRoF+6XVqHs/BHnihXWf0H+Gp/XGGiDxV+gfyN38FNxBI8nL1CbQ="
